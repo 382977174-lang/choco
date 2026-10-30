@@ -1,0 +1,96 @@
+{
+ "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+ "name": "da1250362cc2e4cc8b92",
+ "position": {
+  "x": 1010,
+  "y": 210,
+  "z": 21,
+  "height": 400,
+  "width": 790,
+  "tabOrder": 1021
+ },
+ "visual": {
+  "visualType": "clusteredColumnChart",
+  "query": {
+   "queryState": {
+    "Category": {
+     "projections": [
+      {
+       "field": {
+        "Column": {
+         "Expression": {
+          "SourceRef": {
+           "Entity": "RAW"
+          }
+         },
+         "Property": "搜索引擎名称"
+        }
+       },
+       "queryRef": "RAW.搜索引擎名称",
+       "nativeQueryRef": "搜索引擎名称"
+      }
+     ]
+    },
+    "Y": {
+     "projections": [
+      {
+       "field": {
+        "Measure": {
+         "Expression": {
+          "SourceRef": {
+           "Entity": "RAW"
+          }
+         },
+         "Property": "访问转化率"
+        }
+       },
+       "queryRef": "RAW.访问转化率",
+       "nativeQueryRef": "访问转化率"
+      }
+     ]
+    },
+    "Series": {
+     "projections": [
+      {
+       "field": {
+        "Column": {
+         "Expression": {
+          "SourceRef": {
+           "Entity": "RAW"
+          }
+         },
+         "Property": "设备名称"
+        }
+       },
+       "queryRef": "RAW.设备名称",
+       "nativeQueryRef": "设备名称"
+      }
+     ]
+    }
+   }
+  }
+ },
+ "drillFilterOtherVisuals": true,
+ "visualContainerObjects": {
+  "title": [
+   {
+    "properties": {
+     "show": {
+      "expr": {
+       "Literal": {
+        "Value": "true"
+       }
+      }
+     },
+     "text": {
+      "expr": {
+       "Literal": {
+        "Value": "'访问转化率：搜索引擎 × 设备'"
+       }
+      }
+     }
+    }
+   }
+  ]
+ }
+}
