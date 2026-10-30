@@ -1,0 +1,99 @@
+{
+ "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+ "name": "1fec18ce050100eb6d7d",
+ "position": {
+  "x": 820,
+  "y": 150,
+  "z": 5,
+  "height": 56,
+  "width": 400,
+  "tabOrder": 1005
+ },
+ "visual": {
+  "visualType": "advancedSlicerVisual",
+  "query": {
+   "queryState": {
+    "Values": {
+     "projections": [
+      {
+       "field": {
+        "Column": {
+         "Expression": {
+          "SourceRef": {
+           "Entity": "RAW"
+          }
+         },
+         "Property": "词类名称"
+        }
+       },
+       "queryRef": "RAW.词类名称",
+       "nativeQueryRef": "词类名称"
+      }
+     ]
+    }
+   }
+  },
+  "objects": {
+   "selection": [
+    {
+     "properties": {
+      "singleSelect": {
+       "expr": {
+        "Literal": {
+         "Value": "false"
+        }
+       }
+      }
+     }
+    }
+   ],
+   "selectionIcon": [
+    {
+     "properties": {
+      "show": {
+       "expr": {
+        "Literal": {
+         "Value": "true"
+        }
+       }
+      }
+     }
+    }
+   ]
+  }
+ },
+ "drillFilterOtherVisuals": true,
+ "visualContainerObjects": {
+  "title": [
+   {
+    "properties": {
+     "show": {
+      "expr": {
+       "Literal": {
+        "Value": "false"
+       }
+      }
+     }
+    }
+   }
+  ]
+ },
+ "filterConfig": {
+  "filters": [
+   {
+    "name": "cef38e287d9d87de0ebf",
+    "field": {
+     "Column": {
+      "Expression": {
+       "SourceRef": {
+        "Entity": "RAW"
+       }
+      },
+      "Property": "词类名称"
+     }
+    },
+    "type": "Categorical"
+   }
+  ]
+ }
+}
