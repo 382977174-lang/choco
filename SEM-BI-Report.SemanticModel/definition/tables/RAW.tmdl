@@ -1,0 +1,384 @@
+table RAW
+	lineageTag: 97249118-eff9956b5ff2
+
+	measure 总展现 = SUM(RAW[Impressions])
+		formatString: '#,0'
+		lineageTag: 6097711-af059407f567
+		displayFolder: '01 流量'
+
+		annotation PBI_FormatHint = {}
+
+	measure 总点击 = SUM(RAW[Clicks])
+		formatString: '#,0'
+		lineageTag: 28472578-7fce099fdc8f
+		displayFolder: '01 流量'
+
+		annotation PBI_FormatHint = {}
+
+	measure 总访问 = SUM(RAW[Sessions])
+		formatString: '#,0'
+		lineageTag: 72570479-d2642457322f
+		displayFolder: '01 流量'
+
+		annotation PBI_FormatHint = {}
+
+	measure 页面浏览量 = SUM(RAW[Pageviews])
+		formatString: '#,0'
+		lineageTag: 35279682-759901d98bbd
+		displayFolder: '01 流量'
+
+		annotation PBI_FormatHint = {}
+
+	measure 跳失数 = SUM(RAW[Bounces])
+		formatString: '#,0'
+		lineageTag: 31299540-d3de98b0b687
+		displayFolder: '01 流量'
+
+		annotation PBI_FormatHint = {}
+
+	measure 跳失率 = DIVIDE([跳失数], [总访问])
+		formatString: '0.00%'
+		lineageTag: 29050576-a80895baafc6
+		displayFolder: '01 流量'
+
+		annotation PBI_FormatHint = {}
+
+	measure 订单数 = SUM(RAW[Orders])
+		formatString: '#,0'
+		lineageTag: 98760463-eb36c6799b49
+		displayFolder: '02 转化'
+
+		annotation PBI_FormatHint = {}
+
+	measure 收入 = SUM(RAW[Revenue])
+		formatString: '¥#,0.00'
+		lineageTag: 4457799-d96d95c76e16
+		displayFolder: '02 转化'
+
+		annotation PBI_FormatHint = {}
+
+	measure 访问转化率 = DIVIDE([订单数], [总访问])
+		formatString: '0.00%'
+		lineageTag: 176853-758e367f6230
+		displayFolder: '02 转化'
+
+		annotation PBI_FormatHint = {}
+
+	measure 总消费 = SUM(RAW[Cost])
+		formatString: '¥#,0.00'
+		lineageTag: 54662599-af1c5a53d281
+		displayFolder: '03 成本效率'
+
+		annotation PBI_FormatHint = {}
+
+	measure 点击率 = DIVIDE([总点击], [总展现])
+		formatString: '0.00%'
+		lineageTag: 88558686-36f0343fd35d
+		displayFolder: '03 成本效率'
+
+		annotation PBI_FormatHint = {}
+
+	measure 平均点击成本CPC = DIVIDE([总消费], [总点击])
+		formatString: '¥#,0.00'
+		lineageTag: 62248700-9c04161420b9
+		displayFolder: '03 成本效率'
+
+		annotation PBI_FormatHint = {}
+
+	measure 每单广告成本 = DIVIDE([总消费], [订单数])
+		formatString: '¥#,0'
+		lineageTag: 28185141-09acd336173d
+		displayFolder: '03 成本效率'
+
+		annotation PBI_FormatHint = {}
+
+	measure ROAS = DIVIDE([收入], [总消费])
+		formatString: '0.00%'
+		lineageTag: 91478584-3236155cf521
+		displayFolder: '03 成本效率'
+
+		annotation PBI_FormatHint = {}
+
+	measure 2018Sessions = CALCULATE(SUM(RAW[Sessions]), REMOVEFILTERS(RAW[Year]), RAW[Year] = 2018)
+		formatString: '#,0'
+		lineageTag: 65456151-a7830e7f8fc4
+		displayFolder: '04 同比'
+
+		annotation PBI_FormatHint = {}
+
+	measure 2017Sessions = CALCULATE(SUM(RAW[Sessions]), REMOVEFILTERS(RAW[Year]), RAW[Year] = 2017)
+		formatString: '#,0'
+		lineageTag: 72098953-27e258c246ae
+		displayFolder: '04 同比'
+
+		annotation PBI_FormatHint = {}
+
+	measure 访问量同比增长% = DIVIDE([2018Sessions] - [2017Sessions], [2017Sessions])
+		formatString: '+0.0%;-0.0%;0.0%'
+		lineageTag: 20895249-243ac1047599
+		displayFolder: '04 同比'
+
+		annotation PBI_FormatHint = {}
+
+	measure 日均访问2018 = DIVIDE(CALCULATE(SUM(RAW[Sessions]), RAW[Year] = 2018), CALCULATE(DISTINCTCOUNT(RAW[Date]), RAW[Year] = 2018))
+		formatString: '#,0'
+		lineageTag: 98974558-b60a64eab85a
+		displayFolder: '04 同比'
+
+		annotation PBI_FormatHint = {}
+
+	measure 日均访问2017 = DIVIDE(CALCULATE(SUM(RAW[Sessions]), RAW[Year] = 2017), CALCULATE(DISTINCTCOUNT(RAW[Date]), RAW[Year] = 2017))
+		formatString: '#,0'
+		lineageTag: 23616252-3f35ceee2fc4
+		displayFolder: '04 同比'
+
+		annotation PBI_FormatHint = {}
+
+	column Date
+		dataType: dateTime
+		lineageTag: 66169003-3c962bfac579
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		lineageTag: 39129341-a1fe62be5b22
+		summarizeBy: none
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		dataType: int64
+		lineageTag: 56046603-b0984e77c125
+		summarizeBy: none
+		sourceColumn: Month
+
+		annotation SummarizationSetBy = Automatic
+
+	column Day
+		dataType: int64
+		lineageTag: 49384469-29a0caa8e58e
+		summarizeBy: none
+		sourceColumn: Day
+
+		annotation SummarizationSetBy = Automatic
+
+	column Week
+		dataType: string
+		lineageTag: 31193049-198c550d132c
+		summarizeBy: none
+		sourceColumn: Week
+
+		annotation SummarizationSetBy = Automatic
+
+	column SE
+		dataType: string
+		lineageTag: 45060474-c0057c5b60ed
+		summarizeBy: none
+		sourceColumn: SE
+
+		annotation SummarizationSetBy = Automatic
+
+	column Device
+		dataType: string
+		lineageTag: 55695546-1dbfbfe006c4
+		summarizeBy: none
+		sourceColumn: Device
+
+		annotation SummarizationSetBy = Automatic
+
+	column Axis
+		dataType: string
+		lineageTag: 9258424-7e54e5a5dc46
+		summarizeBy: none
+		sourceColumn: Axis
+
+		annotation SummarizationSetBy = Automatic
+
+	column Category
+		dataType: string
+		lineageTag: 67282326-82dff3a5dc2b
+		summarizeBy: none
+		sourceColumn: Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column Keyword
+		dataType: string
+		lineageTag: 40980399-221fa36e6fde
+		summarizeBy: none
+		sourceColumn: Keyword
+
+		annotation SummarizationSetBy = Automatic
+
+	column Impressions
+		dataType: int64
+		formatString: '#,0'
+		lineageTag: 7218960-c915a08c0029
+		summarizeBy: sum
+		sourceColumn: Impressions
+
+		annotation SummarizationSetBy = Automatic
+
+	column Clicks
+		dataType: int64
+		formatString: '#,0'
+		lineageTag: 3641890-4c87ce52550d
+		summarizeBy: sum
+		sourceColumn: Clicks
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cost
+		dataType: double
+		formatString: '¥#,0.00'
+		lineageTag: 25011146-5a0a864b32fb
+		summarizeBy: sum
+		sourceColumn: Cost
+
+		annotation SummarizationSetBy = Automatic
+
+	column AvgRank
+		dataType: double
+		formatString: '0.00'
+		lineageTag: 18104545-4c64f11167bd
+		summarizeBy: average
+		sourceColumn: AvgRank
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sessions
+		dataType: int64
+		formatString: '#,0'
+		lineageTag: 1820383-1c17da487900
+		summarizeBy: sum
+		sourceColumn: Sessions
+
+		annotation SummarizationSetBy = Automatic
+
+	column Bounces
+		dataType: int64
+		formatString: '#,0'
+		lineageTag: 34876054-b9a0677c01cf
+		summarizeBy: sum
+		sourceColumn: Bounces
+
+		annotation SummarizationSetBy = Automatic
+
+	column Orders
+		dataType: int64
+		formatString: '#,0'
+		lineageTag: 56358721-5434c96f3e52
+		summarizeBy: sum
+		sourceColumn: Orders
+
+		annotation SummarizationSetBy = Automatic
+
+	column Pageviews
+		dataType: int64
+		formatString: '#,0'
+		lineageTag: 98428478-cef69040e1aa
+		summarizeBy: sum
+		sourceColumn: Pageviews
+
+		annotation SummarizationSetBy = Automatic
+
+	column Duration
+		dataType: int64
+		formatString: '#,0'
+		lineageTag: 99055023-aae6bc6e35ff
+		summarizeBy: sum
+		sourceColumn: Duration
+
+		annotation SummarizationSetBy = Automatic
+
+	column Revenue
+		dataType: double
+		formatString: '¥#,0.00'
+		lineageTag: 51173792-46cf8bbe9d13
+		summarizeBy: sum
+		sourceColumn: Revenue
+
+		annotation SummarizationSetBy = Automatic
+
+	column 年 = YEAR(RAW[Date])
+		dataType: int64
+		lineageTag: 83066755-c048f26b1d46
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 搜索引擎名称 = SWITCH(RAW[SE], "baidu", "百度", "sogou", "搜狗", "360", "360", RAW[SE])
+		dataType: string
+		lineageTag: 29634522-9ffa59dda588
+		summarizeBy: none
+		sortByColumn: 搜索引擎排序
+
+		annotation SummarizationSetBy = Automatic
+
+	column 搜索引擎排序 = SWITCH(RAW[SE], "baidu", 1, "sogou", 2, "360", 3, 99)
+		dataType: int64
+		lineageTag: 20698951-5a910312ae93
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 设备名称 = SWITCH(RAW[Device], "PC", "PC端", "MOB", "移动端", RAW[Device])
+		dataType: string
+		lineageTag: 20745873-6625ee7182f1
+		summarizeBy: none
+		sortByColumn: 设备排序
+
+		annotation SummarizationSetBy = Automatic
+
+	column 设备排序 = SWITCH(RAW[Device], "PC", 1, "MOB", 2, 99)
+		dataType: int64
+		lineageTag: 98918369-73b4dda4272c
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 词类名称 = SWITCH(RAW[Category], "brand", "品牌词", "product", "产品词", "generic", "通用词", RAW[Category])
+		dataType: string
+		lineageTag: 16183589-973e4e07ca53
+		summarizeBy: none
+		sortByColumn: 词类排序
+
+		annotation SummarizationSetBy = Automatic
+
+	column 词类排序 = SWITCH(RAW[Category], "brand", 1, "product", 2, "generic", 3, 99)
+		dataType: int64
+		lineageTag: 5063917-0f22cabee81c
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	hierarchy 词类层级
+		lineageTag: 89891953-88a31beb358e
+
+		level 词类名称
+			lineageTag: 8592265-991530484017
+			column: RAW.词类名称
+
+		level 关键词
+			lineageTag: 90716811-34fe6193cb37
+			column: RAW.Keyword
+
+	partition RAW = m
+		mode: import
+		source =
+			let
+			    源 = Csv.Document(File.Contents("C:\SEM-BI报表数据\RAW.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+			    提升的标题 = Table.PromoteHeaders(源, [PromoteAllScalars = true]),
+			    更改的类型 = Table.TransformColumnTypes(提升的标题, {
+			        {"Date", type date}, {"Year", Int64.Type}, {"Month", Int64.Type}, {"Day", Int64.Type},
+			        {"Week", type text}, {"SE", type text}, {"Device", type text}, {"Axis", type text},
+			        {"Category", type text}, {"Keyword", type text},
+			        {"Impressions", Int64.Type}, {"Clicks", Int64.Type}, {"Cost", type number}, {"AvgRank", type number},
+			        {"Sessions", Int64.Type}, {"Bounces", Int64.Type}, {"Orders", Int64.Type},
+			        {"Pageviews", Int64.Type}, {"Duration", Int64.Type}, {"Revenue", type number}})
+			in
+			    更改的类型
