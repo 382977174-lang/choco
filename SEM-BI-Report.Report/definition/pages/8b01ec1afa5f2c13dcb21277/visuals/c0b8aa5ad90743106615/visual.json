@@ -1,0 +1,68 @@
+{
+ "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+ "name": "c0b8aa5ad90743106615",
+ "position": {
+  "x": 120,
+  "y": 226,
+  "z": 6,
+  "height": 108,
+  "width": 265,
+  "tabOrder": 1006
+ },
+ "visual": {
+  "visualType": "card",
+  "query": {
+   "queryState": {
+    "Values": {
+     "projections": [
+      {
+       "field": {
+        "Measure": {
+         "Expression": {
+          "SourceRef": {
+           "Entity": "RAW"
+          }
+         },
+         "Property": "总消费"
+        }
+       },
+       "queryRef": "RAW.总消费",
+       "nativeQueryRef": "总消费"
+      }
+     ]
+    }
+   }
+  },
+  "objects": {
+   "labels": [
+    {
+     "properties": {
+      "fontSize": {
+       "expr": {
+        "Literal": {
+         "Value": "28D"
+        }
+       }
+      }
+     }
+    }
+   ]
+  }
+ },
+ "drillFilterOtherVisuals": true,
+ "visualContainerObjects": {
+  "title": [
+   {
+    "properties": {
+     "show": {
+      "expr": {
+       "Literal": {
+        "Value": "false"
+       }
+      }
+     }
+    }
+   }
+  ]
+ }
+}
