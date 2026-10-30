@@ -1,0 +1,78 @@
+{
+ "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+ "name": "a9de574c53d0e2a7815d",
+ "position": {
+  "x": 1230,
+  "y": 656,
+  "z": 14,
+  "height": 280,
+  "width": 540,
+  "tabOrder": 1014
+ },
+ "visual": {
+  "visualType": "clusteredColumnChart",
+  "query": {
+   "queryState": {
+    "Category": {
+     "projections": [
+      {
+       "field": {
+        "Column": {
+         "Expression": {
+          "SourceRef": {
+           "Entity": "RAW"
+          }
+         },
+         "Property": "搜索引擎名称"
+        }
+       },
+       "queryRef": "RAW.搜索引擎名称",
+       "nativeQueryRef": "搜索引擎名称"
+      }
+     ]
+    },
+    "Y": {
+     "projections": [
+      {
+       "field": {
+        "Measure": {
+         "Expression": {
+          "SourceRef": {
+           "Entity": "RAW"
+          }
+         },
+         "Property": "ROAS"
+        }
+       },
+       "queryRef": "RAW.ROAS",
+       "nativeQueryRef": "ROAS"
+      }
+     ]
+    }
+   }
+  }
+ },
+ "drillFilterOtherVisuals": true,
+ "visualContainerObjects": {
+  "title": [
+   {
+    "properties": {
+     "show": {
+      "expr": {
+       "Literal": {
+        "Value": "true"
+       }
+      }
+     },
+     "text": {
+      "expr": {
+       "Literal": {
+        "Value": "'各搜索引擎 ROAS 对比'"
+       }
+      }
+     }
+    }
+   }
+  ]
+ }
+}
