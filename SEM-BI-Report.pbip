@@ -1,14 +1,14 @@
 {
- "$schema": "https://developer.microsoft.com/json-schemas/fabric/pbip/pbipProperties/1.0.0/schema.json",
+ "version": "1.0",
  "artifacts": [
   {
    "report": {
-    "path": "SEM-BI-Report.Report"
+    "path": "SEM-BI报表.Report"
    }
   },
   {
-   "model": {
-    "path": "SEM-BI-Report.SemanticModel"
+   "semanticModel": {
+    "path": "SEM-BI报表.SemanticModel"
    }
   }
  ],
