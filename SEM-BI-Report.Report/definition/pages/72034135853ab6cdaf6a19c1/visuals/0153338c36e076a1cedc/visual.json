@@ -1,0 +1,58 @@
+{
+ "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+ "name": "0153338c36e076a1cedc",
+ "position": {
+  "x": 120,
+  "y": 44,
+  "z": 16,
+  "height": 56,
+  "width": 1400,
+  "tabOrder": 1016
+ },
+ "visual": {
+  "visualType": "textbox",
+  "objects": {
+   "general": [
+    {
+     "properties": {
+      "paragraphs": [
+       {
+        "textParagraphs": [
+         {
+          "value": "渠道 × 设备效能对比 —— 谁在高投入低产出？",
+          "textStyle": {
+           "fontFamily": "Microsoft YaHei",
+           "fontSize": "26px",
+           "bold": true,
+           "color": {
+            "solid": {
+             "color": "#003366"
+            }
+           }
+          }
+         }
+        ]
+       }
+      ]
+     }
+    }
+   ]
+  }
+ },
+ "drillFilterOtherVisuals": true,
+ "visualContainerObjects": {
+  "title": [
+   {
+    "properties": {
+     "show": {
+      "expr": {
+       "Literal": {
+        "Value": "false"
+       }
+      }
+     }
+    }
+   }
+  ]
+ }
+}
