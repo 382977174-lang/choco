@@ -1,0 +1,99 @@
+{
+ "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+ "name": "bdbece4f1bc1043dbe2b",
+ "position": {
+  "x": 540,
+  "y": 150,
+  "z": 4,
+  "height": 56,
+  "width": 260,
+  "tabOrder": 1004
+ },
+ "visual": {
+  "visualType": "advancedSlicerVisual",
+  "query": {
+   "queryState": {
+    "Values": {
+     "projections": [
+      {
+       "field": {
+        "Column": {
+         "Expression": {
+          "SourceRef": {
+           "Entity": "RAW"
+          }
+         },
+         "Property": "设备名称"
+        }
+       },
+       "queryRef": "RAW.设备名称",
+       "nativeQueryRef": "设备名称"
+      }
+     ]
+    }
+   }
+  },
+  "objects": {
+   "selection": [
+    {
+     "properties": {
+      "singleSelect": {
+       "expr": {
+        "Literal": {
+         "Value": "false"
+        }
+       }
+      }
+     }
+    }
+   ],
+   "selectionIcon": [
+    {
+     "properties": {
+      "show": {
+       "expr": {
+        "Literal": {
+         "Value": "true"
+        }
+       }
+      }
+     }
+    }
+   ]
+  }
+ },
+ "drillFilterOtherVisuals": true,
+ "visualContainerObjects": {
+  "title": [
+   {
+    "properties": {
+     "show": {
+      "expr": {
+       "Literal": {
+        "Value": "false"
+       }
+      }
+     }
+    }
+   }
+  ]
+ },
+ "filterConfig": {
+  "filters": [
+   {
+    "name": "e69c34003dc8b6c94ad2",
+    "field": {
+     "Column": {
+      "Expression": {
+       "SourceRef": {
+        "Entity": "RAW"
+       }
+      },
+      "Property": "设备名称"
+     }
+    },
+    "type": "Categorical"
+   }
+  ]
+ }
+}
