@@ -1,0 +1,58 @@
+{
+ "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+ "name": "bd1377a2cf9854f5c11c",
+ "position": {
+  "x": 980,
+  "y": 210,
+  "z": 39,
+  "height": 430,
+  "width": 820,
+  "tabOrder": 1039
+ },
+ "visual": {
+  "visualType": "textbox",
+  "objects": {
+   "general": [
+    {
+     "properties": {
+      "paragraphs": [
+       {
+        "textParagraphs": [
+         {
+          "value": "1. 预算再平衡（按实测效率）：将高消费低产出关键词的预算逐步转向品牌词与 360/搜狗渠道；转移幅度以周为单位小步试点，依据报表中各组合实际 ROAS 变化决定是否扩大，不预设固定比例。\n2. 移动端专项优化：缩短落地页路径、优化移动端询盘组件；对移动端通用词降低出价、收紧匹配方式。\n3. 通用词治理：对高消费且零/低订单关键词（如气垫bb、口红、口红排行榜等消费超 8 万元且 ROAS 低于 1% 的词）先做落地页与匹配方式诊断，再决定降价、收窄或暂停；以实测数据而非统一阈值作为处置标准。\n4. 品牌词防御与扩量：确保品牌词全时段覆盖首位；围绕品牌词拓展产品词与竞品词，承接高转化流量。\n5. 建立周度 ROAS 看板：沿用本报表口径（ROAS/访问转化率/每单广告成本）按周复盘，用数据驱动预算分配。",
+          "textStyle": {
+           "fontFamily": "Microsoft YaHei",
+           "fontSize": "12px",
+           "bold": false,
+           "color": {
+            "solid": {
+             "color": "#003366"
+            }
+           }
+          }
+         }
+        ]
+       }
+      ]
+     }
+    }
+   ]
+  }
+ },
+ "drillFilterOtherVisuals": true,
+ "visualContainerObjects": {
+  "title": [
+   {
+    "properties": {
+     "show": {
+      "expr": {
+       "Literal": {
+        "Value": "false"
+       }
+      }
+     }
+    }
+   }
+  ]
+ }
+}
