@@ -58,9 +58,9 @@ try {
   Invoke-WebRequest -Uri "https://download.microsoft.com/download/8/8/0/880BCA75-79DD-466A-927D-1ABF1F5454B0/PBIDesktopSetup-2026-10_x64.exe" -OutFile $setup
   Log ("installer bytes: " + (Get-Item $setup).Length)
 } catch { Log "installer download FAILED: $_"; Snap "setup_fail" }
-Log "install start (quiet)"
+Log "install start (quiet, ACCEPT_EULA=1)"
 if (Test-Path $setup) {
-  $w = Start-Process $setup -ArgumentList "/quiet /norestart /log C:\pbi_install.log" -Wait -PassThru
+  $w = Start-Process $setup -ArgumentList "/quiet /norestart ACCEPT_EULA=1 /log C:\pbi_install.log" -Wait -PassThru
   Log ("install exit: " + $w.ExitCode)
 }
 $exe = $null
