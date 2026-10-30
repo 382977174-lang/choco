@@ -43,22 +43,28 @@ function Focus-PBI {
   } catch { Log "focus fail: $_" }
 }
 
-# ---- 1. data: download RAW.csv from this repo's release (GITHUB_TOKEN) ----
+# ---- 1. data: public release asset, no auth ----
 $dataDir = "C:\SEM-BI报表数据"
 New-Item -ItemType Directory -Force $dataDir | Out-Null
-$h = @{ Authorization = "Bearer $env:GITHUB_TOKEN"; "User-Agent" = "sem-bi" }
 try {
-  $assets = Invoke-RestMethod -Uri "https://api.github.com/repos/$env:GITHUB_REPOSITORY/releases/tags/data-v1" -Headers $h
-  $asset = $assets.assets | Where-Object name -eq "RAW.csv"
-  Invoke-WebRequest -Uri $asset.url -Headers $h -OutFile "$dataDir\RAW.csv"
+  Invoke-WebRequest -Uri "https://github.com/$env:GITHUB_REPOSITORY/releases/download/data-v1/RAW.csv" -OutFile "$dataDir\RAW.csv"
   Log ("RAW.csv bytes: " + (Get-Item "$dataDir\RAW.csv").Length)
 } catch { Log "data download FAILED: $_"; Snap "data_fail" }
 
-# ---- 2. install Power BI Desktop ----
-Log "winget install start"
-$w = Start-Process winget -ArgumentList "install --id Microsoft.PowerBIDesktop -e --accept-package-agreements --accept-source-agreements --silent" -Wait -PassThru -NoNewWindow
-Log ("winget exit: " + $w.ExitCode)
+# ---- 2. install Power BI Desktop (official silent installer) ----
+$setup = Join-Path $env:TEMP "PBIDesktopSetup_x64.exe"
+Log "installer download start"
+try {
+  Invoke-WebRequest -Uri "https://download.microsoft.com/download/8/8/0/880BCA75-79DD-466A-927D-1ABF1F5454B0/PBIDesktopSetup-2026-10_x64.exe" -OutFile $setup
+  Log ("installer bytes: " + (Get-Item $setup).Length)
+} catch { Log "installer download FAILED: $_"; Snap "setup_fail" }
+Log "install start (quiet)"
+if (Test-Path $setup) {
+  $w = Start-Process $setup -ArgumentList "/quiet /norestart" -Wait -PassThru
+  Log ("install exit: " + $w.ExitCode)
+}
 $exe = Get-ChildItem "$env:ProgramFiles\Microsoft Power BI Desktop\bin\pbidesktop.exe" -ErrorAction SilentlyContinue | Select-Object -First 1
+if (-not $exe) { $exe = Get-ChildItem "$env:LOCALAPPDATA\Microsoft\Power BI Desktop\bin\pbidesktop.exe" -ErrorAction SilentlyContinue | Select-Object -First 1 }
 if (-not $exe) { $exe = Get-ChildItem "C:\Program Files\WindowsApps" -Recurse -Filter "pbidesktop.exe" -ErrorAction SilentlyContinue | Select-Object -First 1 }
 if (-not $exe) { Log "PBI exe NOT FOUND"; Snap "no_exe" }
 Log ("exe: " + $exe.FullName)
