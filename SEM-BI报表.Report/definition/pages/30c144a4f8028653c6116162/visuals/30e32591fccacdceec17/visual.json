@@ -1,0 +1,58 @@
+{
+ "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+ "name": "30e32591fccacdceec17",
+ "position": {
+  "x": 120,
+  "y": 400,
+  "z": 37,
+  "height": 300,
+  "width": 820,
+  "tabOrder": 1037
+ },
+ "visual": {
+  "visualType": "textbox",
+  "objects": {
+   "general": [
+    {
+     "properties": {
+      "paragraphs": [
+       {
+        "textParagraphs": [
+         {
+          "value": "1. 流量增长≠转化增长：2018期消费 +190.5%、访问 +169.7%（两期天数 30 天 vs 49 天，总量口径非严格同比）；严格可比的共同窗口（6月1-18日）内日均访问同比 +91.1%，但每单广告成本由 ¥9,321 升至 ¥14,451，访问转化率由 0.071% 降至 0.050%，ROAS 由 4.95% 降至 3.11%。\n2. 渠道失衡：百度占 93.0% 预算、ROAS 仅 1.5%；360（31.7%）/搜狗（29.9%）ROAS 高约 20 倍。\n3. 设备倒挂：移动端花 81.8% 预算、ROAS 1.9%；PC 端访问转化率是移动端 5.7 倍、ROAS 11.0%。\n4. 词类错配：通用词消耗 79.5% 预算仅 8 单（ROAS 0.26%）；品牌词 17.2% 预算贡献 95.6% 订单（ROAS 18.8%）。\n5. 业务线分化：Corp 线 35.1 万元消费贡献 478 单（ROAS 58.9%）；MU/FR 两线合计 472 万元消费仅 65 单；FA、FJ、WAT 三线约 121 万元消费零订单。",
+          "textStyle": {
+           "fontFamily": "Microsoft YaHei",
+           "fontSize": "12px",
+           "bold": false,
+           "color": {
+            "solid": {
+             "color": "#003366"
+            }
+           }
+          }
+         }
+        ]
+       }
+      ]
+     }
+    }
+   ]
+  }
+ },
+ "drillFilterOtherVisuals": true,
+ "visualContainerObjects": {
+  "title": [
+   {
+    "properties": {
+     "show": {
+      "expr": {
+       "Literal": {
+        "Value": "false"
+       }
+      }
+     }
+    }
+   }
+  ]
+ }
+}
