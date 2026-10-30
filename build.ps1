@@ -99,11 +99,38 @@ if (-not $exe) {
 }
 Log ("exe: " + $exe.FullName)
 
-# ---- 3. open the PBIP ----
-$pbip = Get-ChildItem (Join-Path $root "project\*.pbip") | Select-Object -First 1
-Log ("open " + $pbip.FullName)
-Start-Process $exe.FullName -ArgumentList "`"$($pbip.FullName)`""
-for ($i = 0; $i -lt 14; $i++) { Start-Sleep 45; Snap "load_$i" }
+# ---- 3. open the PBIP (ASCII path copy) + UIA refresh ----
+$projSrc = Join-Path $root "project2"
+Copy-Item $projSrc "C:\SEMBI" -Recurse -Force
+$pbip = "C:\SEMBI\SEM-BI-Report.pbip"
+Log ("open " + $pbip)
+Start-Process $exe.FullName -ArgumentList "`"$pbip`""
+for ($i = 0; $i -lt 6; $i++) { Start-Sleep 45; Snap "load_$i" }
+
+# UIA: click Refresh on the Home ribbon (name-based)
+Add-Type -AssemblyName UIAutomationClient
+Add-Type -AssemblyName UIAutomationTypes
+function Invoke-UIARefresh {
+  try {
+    $p = Get-Process pbidesktop -ErrorAction SilentlyContinue | Where-Object { $_.MainWindowHandle -ne 0 } | Select-Object -First 1
+    if (-not $p) { return "no window" }
+    $root = [System.Windows.Automation.AutomationElement]::FromHandle($p.MainWindowHandle)
+    $cond = New-Object System.Windows.Automation.PropertyCondition([System.Windows.Automation.AutomationElement]::NameProperty, "Refresh")
+    $btn = $root.FindFirst([System.Windows.Automation.TreeScope]::Descendants, $cond)
+    if ($btn) {
+      $inv = $btn.GetCurrentPattern([System.Windows.Automation.InvokePattern]::Pattern)
+      $inv.Invoke()
+      return "clicked"
+    }
+    return "not found"
+  } catch { return "err: $_" }
+}
+Focus-PBI
+Log ("UIA refresh: " + (Invoke-UIARefresh))
+Start-Sleep 15
+Log ("UIA refresh2: " + (Invoke-UIARefresh))
+[System.Windows.Forms.SendKeys]::SendWait("{F5}")
+for ($i = 0; $i -lt 9; $i++) { Start-Sleep 45; Snap "refresh_$i" }
 
 # ---- 4. refresh ----
 Focus-PBI
