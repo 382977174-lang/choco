@@ -1,0 +1,18 @@
+{
+ "$schema": "https://developer.microsoft.com/json-schemas/fabric/pbip/pbipProperties/1.0.0/schema.json",
+ "artifacts": [
+  {
+   "report": {
+    "path": "SEM-BI报表.Report"
+   }
+  },
+  {
+   "model": {
+    "path": "SEM-BI报表.SemanticModel"
+   }
+  }
+ ],
+ "settings": {
+  "enableAutoRecovery": true
+ }
+}
