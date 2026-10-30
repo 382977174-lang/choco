@@ -1,0 +1,11 @@
+{
+ "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformMetadata/1.0.0/schema.json",
+ "metadata": {
+  "type": "Report",
+  "displayName": "SEM-BI报表"
+ },
+ "config": {
+  "version": "2.2",
+  "logicalId": "0ed13a17-a3fa-0b98-8367-5fb48379d731"
+ }
+}
