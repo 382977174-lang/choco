@@ -60,13 +60,43 @@ try {
 } catch { Log "installer download FAILED: $_"; Snap "setup_fail" }
 Log "install start (quiet)"
 if (Test-Path $setup) {
-  $w = Start-Process $setup -ArgumentList "/quiet /norestart" -Wait -PassThru
+  $w = Start-Process $setup -ArgumentList "/quiet /norestart /log C:\pbi_install.log" -Wait -PassThru
   Log ("install exit: " + $w.ExitCode)
 }
-$exe = Get-ChildItem "$env:ProgramFiles\Microsoft Power BI Desktop\bin\pbidesktop.exe" -ErrorAction SilentlyContinue | Select-Object -First 1
-if (-not $exe) { $exe = Get-ChildItem "$env:LOCALAPPDATA\Microsoft\Power BI Desktop\bin\pbidesktop.exe" -ErrorAction SilentlyContinue | Select-Object -First 1 }
-if (-not $exe) { $exe = Get-ChildItem "C:\Program Files\WindowsApps" -Recurse -Filter "pbidesktop.exe" -ErrorAction SilentlyContinue | Select-Object -First 1 }
-if (-not $exe) { Log "PBI exe NOT FOUND"; Snap "no_exe" }
+$exe = $null
+$cands = @(
+  "$env:ProgramFiles\Microsoft Power BI Desktop\bin\pbidesktop.exe",
+  "$env:ProgramFiles\Microsoft Power BI Desktop RS\bin\pbidesktop.exe",
+  "$env:ProgramFiles\Power BI Desktop\bin\pbidesktop.exe",
+  "${env:ProgramFiles(x86)}\Microsoft Power BI Desktop\bin\pbidesktop.exe",
+  "$env:LOCALAPPDATA\Microsoft\Power BI Desktop\bin\pbidesktop.exe",
+  "$env:LOCALAPPDATA\Microsoft\Power BI Desktop RS\bin\pbidesktop.exe",
+  "$env:LOCALAPPDATA\Programs\Microsoft Power BI Desktop\bin\pbidesktop.exe"
+)
+foreach ($c in $cands) { if (Test-Path $c) { $exe = Get-Item $c; Log "found via cand: $c"; break } }
+if (-not $exe) {
+  try {
+    $keys = Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\*", "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\*" -ErrorAction SilentlyContinue |
+      Where-Object { $_.DisplayName -like "*Power BI*" }
+    foreach ($k in $keys) { Log ("reg: " + $k.DisplayName + " | " + $k.InstallLocation + " | " + $k.DisplayIcon) }
+    foreach ($k in $keys) {
+      $loc = ($k.InstallLocation, $k.DisplayIcon) | Where-Object { $_ } | Select-Object -First 1
+      if ($loc) {
+        $dir = if ((Get-Item $loc).PSIsContainer) { $loc } else { Split-Path $loc }
+        $hit = Get-ChildItem $dir -Recurse -Filter pbidesktop.exe -ErrorAction SilentlyContinue | Select-Object -First 1
+        if ($hit) { $exe = $hit; break }
+      }
+    }
+  } catch { Log "reg search fail: $_" }
+}
+if (-not $exe) {
+  $exe = Get-ChildItem "$env:ProgramFiles", "$env:LOCALAPPDATA\Microsoft", "$env:LOCALAPPDATA\Programs" -Recurse -Filter pbidesktop.exe -ErrorAction SilentlyContinue | Select-Object -First 1
+}
+if (-not $exe) {
+  Log "PBI exe NOT FOUND; install log tail:"
+  if (Test-Path "C:\pbi_install.log") { Get-Content "C:\pbi_install.log" -Tail 30 | ForEach-Object { Log ("IL: " + $_) } }
+  Snap "no_exe"
+}
 Log ("exe: " + $exe.FullName)
 
 # ---- 3. open the PBIP ----
