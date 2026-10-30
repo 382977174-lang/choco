@@ -1,0 +1,68 @@
+{
+ "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+ "name": "d1eede1e36b9b32e38f7",
+ "position": {
+  "x": 397,
+  "y": 226,
+  "z": 7,
+  "height": 108,
+  "width": 265,
+  "tabOrder": 1007
+ },
+ "visual": {
+  "visualType": "card",
+  "query": {
+   "queryState": {
+    "Values": {
+     "projections": [
+      {
+       "field": {
+        "Measure": {
+         "Expression": {
+          "SourceRef": {
+           "Entity": "RAW"
+          }
+         },
+         "Property": "总点击"
+        }
+       },
+       "queryRef": "RAW.总点击",
+       "nativeQueryRef": "总点击"
+      }
+     ]
+    }
+   }
+  },
+  "objects": {
+   "labels": [
+    {
+     "properties": {
+      "fontSize": {
+       "expr": {
+        "Literal": {
+         "Value": "28D"
+        }
+       }
+      }
+     }
+    }
+   ]
+  }
+ },
+ "drillFilterOtherVisuals": true,
+ "visualContainerObjects": {
+  "title": [
+   {
+    "properties": {
+     "show": {
+      "expr": {
+       "Literal": {
+        "Value": "false"
+       }
+      }
+     }
+    }
+   }
+  ]
+ }
+}
