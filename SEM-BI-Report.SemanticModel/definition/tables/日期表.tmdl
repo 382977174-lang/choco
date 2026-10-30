@@ -1,0 +1,52 @@
+table 日期表
+	lineageTag: 47568784-d04ca0cdcf20
+	isDateTable: true
+
+	column Date
+		dataType: dateTime
+		lineageTag: 94688166-c0f047d91e7b
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column 年 = YEAR('日期表'[Date])
+		dataType: int64
+		lineageTag: 53887523-fed7479dd5b7
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 月 = MONTH('日期表'[Date])
+		dataType: int64
+		lineageTag: 60225200-42c99543e2b4
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 月日 = FORMAT('日期表'[Date], "MM-dd")
+		dataType: string
+		lineageTag: 17720814-8e03d16a67b7
+		summarizeBy: none
+		sortByColumn: 月日排序
+
+		annotation SummarizationSetBy = Automatic
+
+	column 月日排序 = MONTH('日期表'[Date]) * 100 + DAY('日期表'[Date])
+		dataType: int64
+		lineageTag: 52214250-37413c48782c
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 年月 = FORMAT('日期表'[Date], "yyyy-MM")
+		dataType: string
+		lineageTag: 14477905-3858f14a33fd
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 日期表 = calculated
+		mode: import
+		source =
+				CALENDAR(DATE(2017, 1, 1), DATE(2018, 12, 31))
