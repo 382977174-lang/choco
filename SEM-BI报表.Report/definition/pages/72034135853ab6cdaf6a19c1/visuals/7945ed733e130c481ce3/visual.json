@@ -1,0 +1,132 @@
+{
+ "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+ "name": "7945ed733e130c481ce3",
+ "position": {
+  "x": 120,
+  "y": 640,
+  "z": 22,
+  "height": 400,
+  "width": 860,
+  "tabOrder": 1022
+ },
+ "visual": {
+  "visualType": "scatterChart",
+  "query": {
+   "queryState": {
+    "X": {
+     "projections": [
+      {
+       "field": {
+        "Measure": {
+         "Expression": {
+          "SourceRef": {
+           "Entity": "RAW"
+          }
+         },
+         "Property": "总消费"
+        }
+       },
+       "queryRef": "RAW.总消费",
+       "nativeQueryRef": "总消费"
+      }
+     ]
+    },
+    "Y": {
+     "projections": [
+      {
+       "field": {
+        "Measure": {
+         "Expression": {
+          "SourceRef": {
+           "Entity": "RAW"
+          }
+         },
+         "Property": "ROAS"
+        }
+       },
+       "queryRef": "RAW.ROAS",
+       "nativeQueryRef": "ROAS"
+      }
+     ]
+    },
+    "Size": {
+     "projections": [
+      {
+       "field": {
+        "Measure": {
+         "Expression": {
+          "SourceRef": {
+           "Entity": "RAW"
+          }
+         },
+         "Property": "总点击"
+        }
+       },
+       "queryRef": "RAW.总点击",
+       "nativeQueryRef": "总点击"
+      }
+     ]
+    },
+    "Legend": {
+     "projections": [
+      {
+       "field": {
+        "Column": {
+         "Expression": {
+          "SourceRef": {
+           "Entity": "RAW"
+          }
+         },
+         "Property": "搜索引擎名称"
+        }
+       },
+       "queryRef": "RAW.搜索引擎名称",
+       "nativeQueryRef": "搜索引擎名称"
+      }
+     ]
+    },
+    "Details": {
+     "projections": [
+      {
+       "field": {
+        "Column": {
+         "Expression": {
+          "SourceRef": {
+           "Entity": "RAW"
+          }
+         },
+         "Property": "设备名称"
+        }
+       },
+       "queryRef": "RAW.设备名称",
+       "nativeQueryRef": "设备名称"
+      }
+     ]
+    }
+   }
+  }
+ },
+ "drillFilterOtherVisuals": true,
+ "visualContainerObjects": {
+  "title": [
+   {
+    "properties": {
+     "show": {
+      "expr": {
+       "Literal": {
+        "Value": "true"
+       }
+      }
+     },
+     "text": {
+      "expr": {
+       "Literal": {
+        "Value": "'渠道效能气泡图：消费 vs ROAS（气泡=点击量，图=搜索引擎，明细=设备）'"
+       }
+      }
+     }
+    }
+   }
+  ]
+ }
+}
