@@ -1,0 +1,58 @@
+{
+ "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+ "name": "9731fcc47cadbc30f0d8",
+ "position": {
+  "x": 1505,
+  "y": 150,
+  "z": 15,
+  "height": 56,
+  "width": 265,
+  "tabOrder": 1015
+ },
+ "visual": {
+  "visualType": "textbox",
+  "objects": {
+   "general": [
+    {
+     "properties": {
+      "paragraphs": [
+       {
+        "textParagraphs": [
+         {
+          "value": "核心问题：整体投放效果如何？流量增长是否真正带来了转化？",
+          "textStyle": {
+           "fontFamily": "Microsoft YaHei",
+           "fontSize": "11px",
+           "bold": true,
+           "color": {
+            "solid": {
+             "color": "#004576"
+            }
+           }
+          }
+         }
+        ]
+       }
+      ]
+     }
+    }
+   ]
+  }
+ },
+ "drillFilterOtherVisuals": true,
+ "visualContainerObjects": {
+  "title": [
+   {
+    "properties": {
+     "show": {
+      "expr": {
+       "Literal": {
+        "Value": "false"
+       }
+      }
+     }
+    }
+   }
+  ]
+ }
+}
