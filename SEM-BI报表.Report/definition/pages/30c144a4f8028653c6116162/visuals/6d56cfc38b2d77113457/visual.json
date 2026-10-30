@@ -1,0 +1,58 @@
+{
+ "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+ "name": "6d56cfc38b2d77113457",
+ "position": {
+  "x": 120,
+  "y": 700,
+  "z": 41,
+  "height": 220,
+  "width": 820,
+  "tabOrder": 1041
+ },
+ "visual": {
+  "visualType": "textbox",
+  "objects": {
+   "general": [
+    {
+     "properties": {
+      "paragraphs": [
+       {
+        "textParagraphs": [
+         {
+          "value": "页①总览：顶部筛选器（搜索引擎/设备/词类）联动全页卡片与图表；折线图按月日对比两年访问量。\n页②渠道：柱形图可点击交叉筛选，气泡图定位高投入低产出象限，明细表支持排序。\n页③关键词：词类柱形图双击逐层下钻到关键词；明细表已按\"总消费>1万\"过滤。\n所有图表支持悬浮查看工具提示与数据钻取。",
+          "textStyle": {
+           "fontFamily": "Microsoft YaHei",
+           "fontSize": "12px",
+           "bold": false,
+           "color": {
+            "solid": {
+             "color": "#003366"
+            }
+           }
+          }
+         }
+        ]
+       }
+      ]
+     }
+    }
+   ]
+  }
+ },
+ "drillFilterOtherVisuals": true,
+ "visualContainerObjects": {
+  "title": [
+   {
+    "properties": {
+     "show": {
+      "expr": {
+       "Literal": {
+        "Value": "false"
+       }
+      }
+     }
+    }
+   }
+  ]
+ }
+}
