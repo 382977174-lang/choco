@@ -1,0 +1,58 @@
+{
+ "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+ "name": "53734a3f0632a64871f9",
+ "position": {
+  "x": 980,
+  "y": 160,
+  "z": 38,
+  "height": 42,
+  "width": 820,
+  "tabOrder": 1038
+ },
+ "visual": {
+  "visualType": "textbox",
+  "objects": {
+   "general": [
+    {
+     "properties": {
+      "paragraphs": [
+       {
+        "textParagraphs": [
+         {
+          "value": "③ SEM 运营建议",
+          "textStyle": {
+           "fontFamily": "Microsoft YaHei",
+           "fontSize": "16px",
+           "bold": true,
+           "color": {
+            "solid": {
+             "color": "#003366"
+            }
+           }
+          }
+         }
+        ]
+       }
+      ]
+     }
+    }
+   ]
+  }
+ },
+ "drillFilterOtherVisuals": true,
+ "visualContainerObjects": {
+  "title": [
+   {
+    "properties": {
+     "show": {
+      "expr": {
+       "Literal": {
+        "Value": "false"
+       }
+      }
+     }
+    }
+   }
+  ]
+ }
+}
