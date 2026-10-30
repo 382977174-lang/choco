@@ -1,0 +1,58 @@
+{
+ "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+ "name": "4c3c18a989a363636fbc",
+ "position": {
+  "x": 120,
+  "y": 104,
+  "z": 2,
+  "height": 34,
+  "width": 1680,
+  "tabOrder": 1002
+ },
+ "visual": {
+  "visualType": "textbox",
+  "objects": {
+   "general": [
+    {
+     "properties": {
+      "paragraphs": [
+       {
+        "textParagraphs": [
+         {
+          "value": "分析期间：2017年6月（30天） vs 2018年5月-6月（49天） | 总量同比 +170%，日均同比 +65% | 数据来源：SEM 投放明细（44.02 万行）",
+          "textStyle": {
+           "fontFamily": "Microsoft YaHei",
+           "fontSize": "12px",
+           "bold": false,
+           "color": {
+            "solid": {
+             "color": "#5A6B7F"
+            }
+           }
+          }
+         }
+        ]
+       }
+      ]
+     }
+    }
+   ]
+  }
+ },
+ "drillFilterOtherVisuals": true,
+ "visualContainerObjects": {
+  "title": [
+   {
+    "properties": {
+     "show": {
+      "expr": {
+       "Literal": {
+        "Value": "false"
+       }
+      }
+     }
+    }
+   }
+  ]
+ }
+}
