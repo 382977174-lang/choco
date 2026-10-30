@@ -1,0 +1,58 @@
+{
+ "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+ "name": "b5647d035dfb5b38ee02",
+ "position": {
+  "x": 120,
+  "y": 150,
+  "z": 18,
+  "height": 40,
+  "width": 1240,
+  "tabOrder": 1018
+ },
+ "visual": {
+  "visualType": "textbox",
+  "objects": {
+   "general": [
+    {
+     "properties": {
+      "paragraphs": [
+       {
+        "textParagraphs": [
+         {
+          "value": "发现：百度消耗 93.0% 预算但 ROAS 仅 1.5%；360（31.7%）与搜狗（29.9%）效率约为其 20 倍；PC 端转化率 0.165% 是移动端（0.029%）的 5.7 倍。",
+          "textStyle": {
+           "fontFamily": "Microsoft YaHei",
+           "fontSize": "12px",
+           "bold": true,
+           "color": {
+            "solid": {
+             "color": "#8B4513"
+            }
+           }
+          }
+         }
+        ]
+       }
+      ]
+     }
+    }
+   ]
+  }
+ },
+ "drillFilterOtherVisuals": true,
+ "visualContainerObjects": {
+  "title": [
+   {
+    "properties": {
+     "show": {
+      "expr": {
+       "Literal": {
+        "Value": "false"
+       }
+      }
+     }
+    }
+   }
+  ]
+ }
+}
