@@ -1,0 +1,147 @@
+{
+ "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+ "name": "3ac8ae3724eff16c45cd",
+ "position": {
+  "x": 120,
+  "y": 356,
+  "z": 12,
+  "height": 580,
+  "width": 1080,
+  "tabOrder": 1012
+ },
+ "visual": {
+  "visualType": "lineChart",
+  "query": {
+   "queryState": {
+    "Category": {
+     "projections": [
+      {
+       "field": {
+        "Column": {
+         "Expression": {
+          "SourceRef": {
+           "Entity": "日期表"
+          }
+         },
+         "Property": "月日"
+        }
+       },
+       "queryRef": "日期表.月日",
+       "nativeQueryRef": "月日"
+      }
+     ]
+    },
+    "Y": {
+     "projections": [
+      {
+       "field": {
+        "Measure": {
+         "Expression": {
+          "SourceRef": {
+           "Entity": "RAW"
+          }
+         },
+         "Property": "2018Sessions"
+        }
+       },
+       "queryRef": "RAW.2018Sessions",
+       "nativeQueryRef": "2018Sessions"
+      },
+      {
+       "field": {
+        "Measure": {
+         "Expression": {
+          "SourceRef": {
+           "Entity": "RAW"
+          }
+         },
+         "Property": "2017Sessions"
+        }
+       },
+       "queryRef": "RAW.2017Sessions",
+       "nativeQueryRef": "2017Sessions"
+      }
+     ]
+    }
+   }
+  },
+  "objects": {
+   "lineStyles": [
+    {
+     "properties": {
+      "strokeWidth": {
+       "expr": {
+        "Literal": {
+         "Value": "3D"
+        }
+       }
+      },
+      "showMarker": {
+       "expr": {
+        "Literal": {
+         "Value": "false"
+        }
+       }
+      }
+     }
+    }
+   ],
+   "valueAxis": [
+    {
+     "properties": {
+      "start": {
+       "expr": {
+        "Literal": {
+         "Value": "0D"
+        }
+       }
+      },
+      "labelDisplayUnits": {
+       "expr": {
+        "Literal": {
+         "Value": "1D"
+        }
+       }
+      }
+     }
+    }
+   ],
+   "labels": [
+    {
+     "properties": {
+      "show": {
+       "expr": {
+        "Literal": {
+         "Value": "false"
+        }
+       }
+      }
+     }
+    }
+   ]
+  }
+ },
+ "drillFilterOtherVisuals": true,
+ "visualContainerObjects": {
+  "title": [
+   {
+    "properties": {
+     "show": {
+      "expr": {
+       "Literal": {
+        "Value": "true"
+       }
+      }
+     },
+     "text": {
+      "expr": {
+       "Literal": {
+        "Value": "'每日访问量同比：2018 vs 2017（X轴=月日）'"
+       }
+      }
+     }
+    }
+   }
+  ]
+ }
+}
