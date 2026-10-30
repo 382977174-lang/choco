@@ -1,0 +1,58 @@
+{
+ "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+ "name": "dbe7d58e02bce6719e7a",
+ "position": {
+  "x": 120,
+  "y": 150,
+  "z": 26,
+  "height": 40,
+  "width": 1680,
+  "tabOrder": 1026
+ },
+ "visual": {
+  "visualType": "textbox",
+  "objects": {
+   "general": [
+    {
+     "properties": {
+      "paragraphs": [
+       {
+        "textParagraphs": [
+         {
+          "value": "发现：通用词消耗 79.5% 预算仅换来 8 单（每单成本 ¥71.6 万，ROAS 0.26%）；品牌词以 17.2% 预算贡献 95.6% 订单（ROAS 18.8%，每单成本 ¥2,284）。",
+          "textStyle": {
+           "fontFamily": "Microsoft YaHei",
+           "fontSize": "12px",
+           "bold": true,
+           "color": {
+            "solid": {
+             "color": "#8B4513"
+            }
+           }
+          }
+         }
+        ]
+       }
+      ]
+     }
+    }
+   ]
+  }
+ },
+ "drillFilterOtherVisuals": true,
+ "visualContainerObjects": {
+  "title": [
+   {
+    "properties": {
+     "show": {
+      "expr": {
+       "Literal": {
+        "Value": "false"
+       }
+      }
+     }
+    }
+   }
+  ]
+ }
+}
