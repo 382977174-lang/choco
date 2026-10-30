@@ -1,0 +1,186 @@
+{
+ "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+ "name": "af89053297ee81381386",
+ "position": {
+  "x": 1010,
+  "y": 640,
+  "z": 23,
+  "height": 400,
+  "width": 790,
+  "tabOrder": 1023
+ },
+ "visual": {
+  "visualType": "tableEx",
+  "query": {
+   "queryState": {
+    "Values": {
+     "projections": [
+      {
+       "field": {
+        "Column": {
+         "Expression": {
+          "SourceRef": {
+           "Entity": "RAW"
+          }
+         },
+         "Property": "搜索引擎名称"
+        }
+       },
+       "queryRef": "RAW.搜索引擎名称",
+       "nativeQueryRef": "搜索引擎名称"
+      },
+      {
+       "field": {
+        "Column": {
+         "Expression": {
+          "SourceRef": {
+           "Entity": "RAW"
+          }
+         },
+         "Property": "设备名称"
+        }
+       },
+       "queryRef": "RAW.设备名称",
+       "nativeQueryRef": "设备名称"
+      },
+      {
+       "field": {
+        "Measure": {
+         "Expression": {
+          "SourceRef": {
+           "Entity": "RAW"
+          }
+         },
+         "Property": "总消费"
+        }
+       },
+       "queryRef": "RAW.总消费",
+       "nativeQueryRef": "总消费"
+      },
+      {
+       "field": {
+        "Measure": {
+         "Expression": {
+          "SourceRef": {
+           "Entity": "RAW"
+          }
+         },
+         "Property": "总点击"
+        }
+       },
+       "queryRef": "RAW.总点击",
+       "nativeQueryRef": "总点击"
+      },
+      {
+       "field": {
+        "Measure": {
+         "Expression": {
+          "SourceRef": {
+           "Entity": "RAW"
+          }
+         },
+         "Property": "点击率"
+        }
+       },
+       "queryRef": "RAW.点击率",
+       "nativeQueryRef": "点击率"
+      },
+      {
+       "field": {
+        "Measure": {
+         "Expression": {
+          "SourceRef": {
+           "Entity": "RAW"
+          }
+         },
+         "Property": "总访问"
+        }
+       },
+       "queryRef": "RAW.总访问",
+       "nativeQueryRef": "总访问"
+      },
+      {
+       "field": {
+        "Measure": {
+         "Expression": {
+          "SourceRef": {
+           "Entity": "RAW"
+          }
+         },
+         "Property": "订单数"
+        }
+       },
+       "queryRef": "RAW.订单数",
+       "nativeQueryRef": "订单数"
+      },
+      {
+       "field": {
+        "Measure": {
+         "Expression": {
+          "SourceRef": {
+           "Entity": "RAW"
+          }
+         },
+         "Property": "访问转化率"
+        }
+       },
+       "queryRef": "RAW.访问转化率",
+       "nativeQueryRef": "访问转化率"
+      },
+      {
+       "field": {
+        "Measure": {
+         "Expression": {
+          "SourceRef": {
+           "Entity": "RAW"
+          }
+         },
+         "Property": "每单广告成本"
+        }
+       },
+       "queryRef": "RAW.每单广告成本",
+       "nativeQueryRef": "每单广告成本"
+      },
+      {
+       "field": {
+        "Measure": {
+         "Expression": {
+          "SourceRef": {
+           "Entity": "RAW"
+          }
+         },
+         "Property": "ROAS"
+        }
+       },
+       "queryRef": "RAW.ROAS",
+       "nativeQueryRef": "ROAS"
+      }
+     ]
+    }
+   }
+  }
+ },
+ "drillFilterOtherVisuals": true,
+ "visualContainerObjects": {
+  "title": [
+   {
+    "properties": {
+     "show": {
+      "expr": {
+       "Literal": {
+        "Value": "true"
+       }
+      }
+     },
+     "text": {
+      "expr": {
+       "Literal": {
+        "Value": "'渠道 × 设备 指标明细（可点击列名排序）'"
+       }
+      }
+     }
+    }
+   }
+  ]
+ }
+}
