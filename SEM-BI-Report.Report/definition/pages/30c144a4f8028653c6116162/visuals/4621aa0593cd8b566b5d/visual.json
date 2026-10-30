@@ -1,0 +1,78 @@
+{
+ "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+ "name": "4621aa0593cd8b566b5d",
+ "position": {
+  "x": 980,
+  "y": 650,
+  "z": 42,
+  "height": 280,
+  "width": 410,
+  "tabOrder": 1042
+ },
+ "visual": {
+  "visualType": "donutChart",
+  "query": {
+   "queryState": {
+    "Detail": {
+     "projections": [
+      {
+       "field": {
+        "Column": {
+         "Expression": {
+          "SourceRef": {
+           "Entity": "RAW"
+          }
+         },
+         "Property": "词类名称"
+        }
+       },
+       "queryRef": "RAW.词类名称",
+       "nativeQueryRef": "词类名称"
+      }
+     ]
+    },
+    "Values": {
+     "projections": [
+      {
+       "field": {
+        "Measure": {
+         "Expression": {
+          "SourceRef": {
+           "Entity": "RAW"
+          }
+         },
+         "Property": "总消费"
+        }
+       },
+       "queryRef": "RAW.总消费",
+       "nativeQueryRef": "总消费"
+      }
+     ]
+    }
+   }
+  }
+ },
+ "drillFilterOtherVisuals": true,
+ "visualContainerObjects": {
+  "title": [
+   {
+    "properties": {
+     "show": {
+      "expr": {
+       "Literal": {
+        "Value": "true"
+       }
+      }
+     },
+     "text": {
+      "expr": {
+       "Literal": {
+        "Value": "'投入结构（消费占比）'"
+       }
+      }
+     }
+    }
+   }
+  ]
+ }
+}
