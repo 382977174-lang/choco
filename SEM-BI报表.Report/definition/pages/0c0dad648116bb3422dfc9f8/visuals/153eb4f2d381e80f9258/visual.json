@@ -1,0 +1,96 @@
+{
+ "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+ "name": "153eb4f2d381e80f9258",
+ "position": {
+  "x": 1230,
+  "y": 640,
+  "z": 31,
+  "height": 400,
+  "width": 570,
+  "tabOrder": 1031
+ },
+ "visual": {
+  "visualType": "scatterChart",
+  "query": {
+   "queryState": {
+    "X": {
+     "projections": [
+      {
+       "field": {
+        "Measure": {
+         "Expression": {
+          "SourceRef": {
+           "Entity": "RAW"
+          }
+         },
+         "Property": "总消费"
+        }
+       },
+       "queryRef": "RAW.总消费",
+       "nativeQueryRef": "总消费"
+      }
+     ]
+    },
+    "Y": {
+     "projections": [
+      {
+       "field": {
+        "Measure": {
+         "Expression": {
+          "SourceRef": {
+           "Entity": "RAW"
+          }
+         },
+         "Property": "ROAS"
+        }
+       },
+       "queryRef": "RAW.ROAS",
+       "nativeQueryRef": "ROAS"
+      }
+     ]
+    },
+    "Size": {
+     "projections": [
+      {
+       "field": {
+        "Measure": {
+         "Expression": {
+          "SourceRef": {
+           "Entity": "RAW"
+          }
+         },
+         "Property": "总点击"
+        }
+       },
+       "queryRef": "RAW.总点击",
+       "nativeQueryRef": "总点击"
+      }
+     ]
+    }
+   }
+  }
+ },
+ "drillFilterOtherVisuals": true,
+ "visualContainerObjects": {
+  "title": [
+   {
+    "properties": {
+     "show": {
+      "expr": {
+       "Literal": {
+        "Value": "true"
+       }
+      }
+     },
+     "text": {
+      "expr": {
+       "Literal": {
+        "Value": "'关键词投入产出气泡图（消费 > 1 万元）'"
+       }
+      }
+     }
+    }
+   }
+  ]
+ }
+}
