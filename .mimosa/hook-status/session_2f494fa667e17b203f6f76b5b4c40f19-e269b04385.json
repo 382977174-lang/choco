@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "mimosa-hook-status/v1",
+  "recordedAt": "2026-10-30T21:58:40.441Z",
+  "sessionId": "session_2f494fa667e17b203f6f76b5b4c40f19",
+  "event": "PostToolUse",
+  "toolName": "Edit",
+  "file": "/Users/huyuhao/.zcode/workspace/draft-8b9e85d8-b396-47f5-bee1-c8f525ae94ca/work/forkfiles/build.ps1",
+  "outcome": "clear",
+  "coverage": "complete",
+  "findingCount": 0,
+  "durationMs": 2,
+  "hostState": "hook_complete",
+  "reportHint": ".mimosa/reports/"
+}
