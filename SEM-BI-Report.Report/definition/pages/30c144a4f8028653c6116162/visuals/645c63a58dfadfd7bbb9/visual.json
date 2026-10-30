@@ -1,0 +1,58 @@
+{
+ "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+ "name": "645c63a58dfadfd7bbb9",
+ "position": {
+  "x": 120,
+  "y": 104,
+  "z": 33,
+  "height": 34,
+  "width": 1680,
+  "tabOrder": 1033
+ },
+ "visual": {
+  "visualType": "textbox",
+  "objects": {
+   "general": [
+    {
+     "properties": {
+      "paragraphs": [
+       {
+        "textParagraphs": [
+         {
+          "value": "口径说明：ROAS = 收入 ÷ 消费；访问转化率 = 订单数 ÷ 访问次数；每单广告成本 = 消费 ÷ 订单数 | 数据期间：2017.06（30天）与 2018.05.01-06.18（49天）",
+          "textStyle": {
+           "fontFamily": "Microsoft YaHei",
+           "fontSize": "12px",
+           "bold": false,
+           "color": {
+            "solid": {
+             "color": "#5A6B7F"
+            }
+           }
+          }
+         }
+        ]
+       }
+      ]
+     }
+    }
+   ]
+  }
+ },
+ "drillFilterOtherVisuals": true,
+ "visualContainerObjects": {
+  "title": [
+   {
+    "properties": {
+     "show": {
+      "expr": {
+       "Literal": {
+        "Value": "false"
+       }
+      }
+     }
+    }
+   }
+  ]
+ }
+}
