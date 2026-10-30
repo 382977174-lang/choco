@@ -1,0 +1,218 @@
+{
+ "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+ "name": "4cd41c5df61cdfc699dc",
+ "position": {
+  "x": 120,
+  "y": 640,
+  "z": 30,
+  "height": 400,
+  "width": 1080,
+  "tabOrder": 1030
+ },
+ "visual": {
+  "visualType": "tableEx",
+  "query": {
+   "queryState": {
+    "Values": {
+     "projections": [
+      {
+       "field": {
+        "Column": {
+         "Expression": {
+          "SourceRef": {
+           "Entity": "RAW"
+          }
+         },
+         "Property": "Keyword"
+        }
+       },
+       "queryRef": "RAW.Keyword",
+       "nativeQueryRef": "Keyword"
+      },
+      {
+       "field": {
+        "Column": {
+         "Expression": {
+          "SourceRef": {
+           "Entity": "RAW"
+          }
+         },
+         "Property": "词类名称"
+        }
+       },
+       "queryRef": "RAW.词类名称",
+       "nativeQueryRef": "词类名称"
+      },
+      {
+       "field": {
+        "Column": {
+         "Expression": {
+          "SourceRef": {
+           "Entity": "RAW"
+          }
+         },
+         "Property": "搜索引擎名称"
+        }
+       },
+       "queryRef": "RAW.搜索引擎名称",
+       "nativeQueryRef": "搜索引擎名称"
+      },
+      {
+       "field": {
+        "Measure": {
+         "Expression": {
+          "SourceRef": {
+           "Entity": "RAW"
+          }
+         },
+         "Property": "总消费"
+        }
+       },
+       "queryRef": "RAW.总消费",
+       "nativeQueryRef": "总消费"
+      },
+      {
+       "field": {
+        "Measure": {
+         "Expression": {
+          "SourceRef": {
+           "Entity": "RAW"
+          }
+         },
+         "Property": "总点击"
+        }
+       },
+       "queryRef": "RAW.总点击",
+       "nativeQueryRef": "总点击"
+      },
+      {
+       "field": {
+        "Measure": {
+         "Expression": {
+          "SourceRef": {
+           "Entity": "RAW"
+          }
+         },
+         "Property": "点击率"
+        }
+       },
+       "queryRef": "RAW.点击率",
+       "nativeQueryRef": "点击率"
+      },
+      {
+       "field": {
+        "Measure": {
+         "Expression": {
+          "SourceRef": {
+           "Entity": "RAW"
+          }
+         },
+         "Property": "订单数"
+        }
+       },
+       "queryRef": "RAW.订单数",
+       "nativeQueryRef": "订单数"
+      },
+      {
+       "field": {
+        "Measure": {
+         "Expression": {
+          "SourceRef": {
+           "Entity": "RAW"
+          }
+         },
+         "Property": "每单广告成本"
+        }
+       },
+       "queryRef": "RAW.每单广告成本",
+       "nativeQueryRef": "每单广告成本"
+      },
+      {
+       "field": {
+        "Measure": {
+         "Expression": {
+          "SourceRef": {
+           "Entity": "RAW"
+          }
+         },
+         "Property": "ROAS"
+        }
+       },
+       "queryRef": "RAW.ROAS",
+       "nativeQueryRef": "ROAS"
+      }
+     ]
+    }
+   }
+  }
+ },
+ "drillFilterOtherVisuals": true,
+ "visualContainerObjects": {
+  "title": [
+   {
+    "properties": {
+     "show": {
+      "expr": {
+       "Literal": {
+        "Value": "true"
+       }
+      }
+     },
+     "text": {
+      "expr": {
+       "Literal": {
+        "Value": "'高消费关键词明细（总消费 > 1 万元）'"
+       }
+      }
+     }
+    }
+   }
+  ]
+ },
+ "filterConfig": {
+  "filters": [
+   {
+    "name": "7f9610c7726f7a7b71ab",
+    "field": {
+     "Measure": {
+      "Expression": {
+       "SourceRef": {
+        "Entity": "RAW"
+       }
+      },
+      "Property": "总消费"
+     }
+    },
+    "type": "Advanced",
+    "filter": {
+     "Version": 2,
+     "From": [],
+     "Where": [
+      {
+       "Condition": {
+        "Comparison": {
+         "ComparisonKind": 1,
+         "Left": {
+          "Measure": {
+           "Expression": {
+            "SourceRef": {
+             "Entity": "RAW"
+            }
+           },
+           "Property": "总消费"
+          }
+         },
+         "Right": {
+          "Literal": {
+           "Value": "10000L"
+          }
+         }
+        }
+       }
+      }
+     ]
+    }
+   }
+  ]
+ }
+}
