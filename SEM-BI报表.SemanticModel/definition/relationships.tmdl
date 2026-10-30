@@ -1,0 +1,5 @@
+relationship b0605946-8ef8-9de6-9e38-4466f8f6c236
+	fromTable: 日期表
+	fromColumn: Date
+	toTable: RAW
+	toColumn: Date
