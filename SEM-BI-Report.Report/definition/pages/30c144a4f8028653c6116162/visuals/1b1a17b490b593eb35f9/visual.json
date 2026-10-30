@@ -1,0 +1,58 @@
+{
+ "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+ "name": "1b1a17b490b593eb35f9",
+ "position": {
+  "x": 120,
+  "y": 210,
+  "z": 35,
+  "height": 130,
+  "width": 820,
+  "tabOrder": 1035
+ },
+ "visual": {
+  "visualType": "textbox",
+  "objects": {
+   "general": [
+    {
+     "properties": {
+      "paragraphs": [
+       {
+        "textParagraphs": [
+         {
+          "value": "站在 SEM 运营与管理者视角，评估渠道预算的使用效率，回答四个业务问题：整体投放效果如何？各搜索引擎与设备端表现差异？品牌词/产品词/通用词中哪些更值得投入？哪些渠道或关键词存在高投入低产出？",
+          "textStyle": {
+           "fontFamily": "Microsoft YaHei",
+           "fontSize": "13px",
+           "bold": false,
+           "color": {
+            "solid": {
+             "color": "#003366"
+            }
+           }
+          }
+         }
+        ]
+       }
+      ]
+     }
+    }
+   ]
+  }
+ },
+ "drillFilterOtherVisuals": true,
+ "visualContainerObjects": {
+  "title": [
+   {
+    "properties": {
+     "show": {
+      "expr": {
+       "Literal": {
+        "Value": "false"
+       }
+      }
+     }
+    }
+   }
+  ]
+ }
+}
