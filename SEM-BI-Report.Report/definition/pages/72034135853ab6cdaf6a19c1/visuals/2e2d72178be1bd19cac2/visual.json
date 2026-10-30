@@ -1,0 +1,106 @@
+{
+ "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+ "name": "2e2d72178be1bd19cac2",
+ "position": {
+  "x": 1400,
+  "y": 144,
+  "z": 19,
+  "height": 56,
+  "width": 400,
+  "tabOrder": 1019
+ },
+ "visual": {
+  "visualType": "advancedSlicerVisual",
+  "query": {
+   "queryState": {
+    "Values": {
+     "projections": [
+      {
+       "field": {
+        "Column": {
+         "Expression": {
+          "SourceRef": {
+           "Entity": "RAW"
+          }
+         },
+         "Property": "Axis"
+        }
+       },
+       "queryRef": "RAW.Axis",
+       "nativeQueryRef": "Axis"
+      }
+     ]
+    }
+   }
+  },
+  "objects": {
+   "selection": [
+    {
+     "properties": {
+      "singleSelect": {
+       "expr": {
+        "Literal": {
+         "Value": "false"
+        }
+       }
+      }
+     }
+    }
+   ],
+   "selectionIcon": [
+    {
+     "properties": {
+      "show": {
+       "expr": {
+        "Literal": {
+         "Value": "true"
+        }
+       }
+      }
+     }
+    }
+   ]
+  }
+ },
+ "drillFilterOtherVisuals": true,
+ "visualContainerObjects": {
+  "title": [
+   {
+    "properties": {
+     "show": {
+      "expr": {
+       "Literal": {
+        "Value": "true"
+       }
+      }
+     },
+     "text": {
+      "expr": {
+       "Literal": {
+        "Value": "'业务线筛选（Axis）'"
+       }
+      }
+     }
+    }
+   }
+  ]
+ },
+ "filterConfig": {
+  "filters": [
+   {
+    "name": "2d6472e8a2d3cb7064eb",
+    "field": {
+     "Column": {
+      "Expression": {
+       "SourceRef": {
+        "Entity": "RAW"
+       }
+      },
+      "Property": "Axis"
+     }
+    },
+    "type": "Categorical"
+   }
+  ]
+ }
+}
