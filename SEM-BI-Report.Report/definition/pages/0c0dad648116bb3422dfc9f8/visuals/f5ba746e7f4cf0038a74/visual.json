@@ -1,0 +1,78 @@
+{
+ "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+ "name": "f5ba746e7f4cf0038a74",
+ "position": {
+  "x": 690,
+  "y": 210,
+  "z": 28,
+  "height": 400,
+  "width": 540,
+  "tabOrder": 1028
+ },
+ "visual": {
+  "visualType": "donutChart",
+  "query": {
+   "queryState": {
+    "Detail": {
+     "projections": [
+      {
+       "field": {
+        "Column": {
+         "Expression": {
+          "SourceRef": {
+           "Entity": "RAW"
+          }
+         },
+         "Property": "词类名称"
+        }
+       },
+       "queryRef": "RAW.词类名称",
+       "nativeQueryRef": "词类名称"
+      }
+     ]
+    },
+    "Values": {
+     "projections": [
+      {
+       "field": {
+        "Measure": {
+         "Expression": {
+          "SourceRef": {
+           "Entity": "RAW"
+          }
+         },
+         "Property": "订单数"
+        }
+       },
+       "queryRef": "RAW.订单数",
+       "nativeQueryRef": "订单数"
+      }
+     ]
+    }
+   }
+  }
+ },
+ "drillFilterOtherVisuals": true,
+ "visualContainerObjects": {
+  "title": [
+   {
+    "properties": {
+     "show": {
+      "expr": {
+       "Literal": {
+        "Value": "true"
+       }
+      }
+     },
+     "text": {
+      "expr": {
+       "Literal": {
+        "Value": "'产出结构：各词类订单占比'"
+       }
+      }
+     }
+    }
+   }
+  ]
+ }
+}
