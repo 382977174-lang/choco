@@ -1,0 +1,58 @@
+{
+ "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+ "name": "65f8492dc2856395e672",
+ "position": {
+  "x": 120,
+  "y": 160,
+  "z": 34,
+  "height": 42,
+  "width": 820,
+  "tabOrder": 1034
+ },
+ "visual": {
+  "visualType": "textbox",
+  "objects": {
+   "general": [
+    {
+     "properties": {
+      "paragraphs": [
+       {
+        "textParagraphs": [
+         {
+          "value": "① 分析目标",
+          "textStyle": {
+           "fontFamily": "Microsoft YaHei",
+           "fontSize": "16px",
+           "bold": true,
+           "color": {
+            "solid": {
+             "color": "#003366"
+            }
+           }
+          }
+         }
+        ]
+       }
+      ]
+     }
+    }
+   ]
+  }
+ },
+ "drillFilterOtherVisuals": true,
+ "visualContainerObjects": {
+  "title": [
+   {
+    "properties": {
+     "show": {
+      "expr": {
+       "Literal": {
+        "Value": "false"
+       }
+      }
+     }
+    }
+   }
+  ]
+ }
+}
