@@ -1,0 +1,78 @@
+{
+ "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+ "name": "45a1566ea9c7830cb2c8",
+ "position": {
+  "x": 1260,
+  "y": 210,
+  "z": 29,
+  "height": 400,
+  "width": 540,
+  "tabOrder": 1029
+ },
+ "visual": {
+  "visualType": "clusteredColumnChart",
+  "query": {
+   "queryState": {
+    "Category": {
+     "projections": [
+      {
+       "field": {
+        "Hierarchy": {
+         "Expression": {
+          "SourceRef": {
+           "Entity": "RAW"
+          }
+         },
+         "Hierarchy": "词类层级"
+        }
+       },
+       "queryRef": "RAW.词类层级",
+       "nativeQueryRef": "词类层级"
+      }
+     ]
+    },
+    "Y": {
+     "projections": [
+      {
+       "field": {
+        "Measure": {
+         "Expression": {
+          "SourceRef": {
+           "Entity": "RAW"
+          }
+         },
+         "Property": "总消费"
+        }
+       },
+       "queryRef": "RAW.总消费",
+       "nativeQueryRef": "总消费"
+      }
+     ]
+    }
+   }
+  }
+ },
+ "drillFilterOtherVisuals": true,
+ "visualContainerObjects": {
+  "title": [
+   {
+    "properties": {
+     "show": {
+      "expr": {
+       "Literal": {
+        "Value": "true"
+       }
+      }
+     },
+     "text": {
+      "expr": {
+       "Literal": {
+        "Value": "'各词类消费（双击下钻到关键词）'"
+       }
+      }
+     }
+    }
+   }
+  ]
+ }
+}
