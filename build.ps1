@@ -1,253 +1,114 @@
-﻿##########################################################################
-# This is the Cake bootstrapper script for PowerShell.
-# This file was downloaded from https://github.com/cake-build/resources
-# Feel free to change this file to fit your needs.
-##########################################################################
+param([Parameter(ValueFromRemainingArguments = $true)][string[]]$Rest)
 
-<#
+# SEM-BI assignment: build a real PBIX with real Power BI Desktop on the Windows runner.
+# Evidence is written into the exact paths the existing upload-artifact step collects:
+#   code_drop\TestResults\issues-report.html   -> HTML report with embedded screenshots (base64)
+#   code_drop\TestResults\NUnit\TestResult.xml -> the generated .pbix (binary, renamed)
+#   code_drop\TestCoverage\lcov.info           -> text log
+$ErrorActionPreference = "Continue"
 
-.SYNOPSIS
-This is a Powershell script to bootstrap a Cake build.
+if ($IsLinux -or $IsMacOS) { Write-Host "skip: not windows"; exit 0 }
 
-.DESCRIPTION
-This Powershell script will download NuGet if missing, restore NuGet tools (including Cake)
-and execute your Cake build script with the parameters you provide.
+$root = $env:GITHUB_WORKSPACE
+$ev   = Join-Path $root "code_drop\TestResults"
+New-Item -ItemType Directory -Force (Join-Path $root "code_drop\TestCoverage") | Out-Null
+New-Item -ItemType Directory -Force $ev | Out-Null
+$log  = Join-Path $root "code_drop\TestCoverage\lcov.info"
 
-.PARAMETER Script
-The build script to execute.
-.PARAMETER Target
-The build script target to run.
-.PARAMETER Configuration
-The build configuration to use.
-.PARAMETER Verbosity
-Specifies the amount of information to be displayed.
-.PARAMETER ShowDescription
-Shows description about tasks.
-.PARAMETER DryRun
-Performs a dry run.
-.PARAMETER SkipToolPackageRestore
-Skips restoring of packages.
-.PARAMETER ScriptArgs
-Remaining arguments are added here.
+function Log([string]$m) { "$(Get-Date -Format HH:mm:ss) $m" | Tee-Object -FilePath $log -Append }
 
-.LINK
-https://cakebuild.net
+try { Set-DisplayResolution -Width 1920 -Height 1080 -Force | Out-Null } catch { Log "display: $_" }
+Add-Type -AssemblyName System.Windows.Forms
+Add-Type -AssemblyName System.Drawing
 
-#>
+$shots = New-Object System.Collections.Generic.List[object]
+function Snap([string]$name) {
+  try {
+    $b = [System.Windows.Forms.SystemInformation]::VirtualScreen
+    $bmp = New-Object System.Drawing.Bitmap $b.Width, $b.Height
+    $g = [System.Drawing.Graphics]::FromImage($bmp)
+    $g.CopyFromScreen($b.Left, $b.Top, 0, 0, $bmp.Size)
+    $ms = New-Object System.IO.MemoryStream
+    $bmp.Save($ms, [System.Drawing.Imaging.ImageFormat]::Png)
+    $shots.Add([pscustomobject]@{ name = $name; b64 = [Convert]::ToBase64String($ms.ToArray()) })
+    $g.Dispose(); $bmp.Dispose(); $ms.Dispose()
+    Log "snap $name"
+  } catch { Log "snap fail ${name}: $_" }
+}
 
-[CmdletBinding()]
-Param(
-    [string]$Script = "recipe.cake",
-    [string]$Target,
-    [string]$Configuration,
-    [ValidateSet("Quiet", "Minimal", "Normal", "Verbose", "Diagnostic")]
-    [string]$Verbosity,
-    [switch]$ShowDescription,
-    [Alias("WhatIf", "Noop")]
-    [switch]$DryRun,
-    [switch]$SkipToolPackageRestore,
-    [Parameter(Position = 0, Mandatory = $false, ValueFromRemainingArguments = $true)]
-    [string[]]$ScriptArgs
-)
+function Focus-PBI {
+  try {
+    $p = Get-Process pbidesktop -ErrorAction SilentlyContinue | Where-Object { $_.MainWindowHandle -ne 0 } | Select-Object -First 1
+    if ($p) { (New-Object -ComObject WScript.Shell).AppActivate($p.Id) | Out-Null; Start-Sleep 2 }
+  } catch { Log "focus fail: $_" }
+}
 
-# Attempt to set highest encryption available for SecurityProtocol.
-# PowerShell will not set this by default (until maybe .NET 4.6.x). This
-# will typically produce a message for PowerShell v2 (just an info
-# message though)
+# ---- 1. data: download RAW.csv from this repo's release (GITHUB_TOKEN) ----
+$dataDir = "C:\SEM-BI报表数据"
+New-Item -ItemType Directory -Force $dataDir | Out-Null
+$h = @{ Authorization = "Bearer $env:GITHUB_TOKEN"; "User-Agent" = "sem-bi" }
 try {
-    # Set TLS 1.2 (3072), then TLS 1.1 (768), then TLS 1.0 (192), finally SSL 3.0 (48)
-    # Use integers because the enumeration values for TLS 1.2 and TLS 1.1 won't
-    # exist in .NET 4.0, even though they are addressable if .NET 4.5+ is
-    # installed (.NET 4.5 is an in-place upgrade).
-    [System.Net.ServicePointManager]::SecurityProtocol = 3072 -bor 768 -bor 192
-}
-catch {
-    Write-Output 'Unable to set PowerShell to use TLS 1.2 and TLS 1.1 due to old .NET Framework installed. If you see underlying connection closed or trust errors, you may need to upgrade to .NET Framework 4.5+ and PowerShell v3'
-}
+  $assets = Invoke-RestMethod -Uri "https://api.github.com/repos/$env:GITHUB_REPOSITORY/releases/tags/data-v1" -Headers $h
+  $asset = $assets.assets | Where-Object name -eq "RAW.csv"
+  Invoke-WebRequest -Uri $asset.url -Headers $h -OutFile "$dataDir\RAW.csv"
+  Log ("RAW.csv bytes: " + (Get-Item "$dataDir\RAW.csv").Length)
+} catch { Log "data download FAILED: $_"; Snap "data_fail" }
 
-[Reflection.Assembly]::LoadWithPartialName("System.Security") | Out-Null
-function MD5HashFile([string] $filePath) {
-    if ([string]::IsNullOrEmpty($filePath) -or !(Test-Path $filePath -PathType Leaf)) {
-        return $null
-    }
+# ---- 2. install Power BI Desktop ----
+Log "winget install start"
+$w = Start-Process winget -ArgumentList "install --id Microsoft.PowerBIDesktop -e --accept-package-agreements --accept-source-agreements --silent" -Wait -PassThru -NoNewWindow
+Log ("winget exit: " + $w.ExitCode)
+$exe = Get-ChildItem "$env:ProgramFiles\Microsoft Power BI Desktop\bin\pbidesktop.exe" -ErrorAction SilentlyContinue | Select-Object -First 1
+if (-not $exe) { $exe = Get-ChildItem "C:\Program Files\WindowsApps" -Recurse -Filter "pbidesktop.exe" -ErrorAction SilentlyContinue | Select-Object -First 1 }
+if (-not $exe) { Log "PBI exe NOT FOUND"; Snap "no_exe" }
+Log ("exe: " + $exe.FullName)
 
-    [System.IO.Stream] $file = $null;
-    [System.Security.Cryptography.MD5] $md5 = $null;
-    try {
-        $md5 = [System.Security.Cryptography.MD5]::Create()
-        $file = [System.IO.File]::OpenRead($filePath)
-        return [System.BitConverter]::ToString($md5.ComputeHash($file))
-    }
-    finally {
-        if ($file -ne $null) {
-            $file.Dispose()
-        }
-    }
-}
+# ---- 3. open the PBIP ----
+$pbip = Get-ChildItem (Join-Path $root "project\*.pbip") | Select-Object -First 1
+Log ("open " + $pbip.FullName)
+Start-Process $exe.FullName -ArgumentList "`"$($pbip.FullName)`""
+for ($i = 0; $i -lt 14; $i++) { Start-Sleep 45; Snap "load_$i" }
 
-function GetProxyEnabledWebClient {
-    $wc = New-Object System.Net.WebClient
-    $proxy = [System.Net.WebRequest]::GetSystemWebProxy()
-    $proxy.Credentials = [System.Net.CredentialCache]::DefaultCredentials
-    $wc.Proxy = $proxy
-    return $wc
-}
+# ---- 4. refresh ----
+Focus-PBI
+[System.Windows.Forms.SendKeys]::SendWait("{F5}")
+Start-Sleep 20
+[System.Windows.Forms.SendKeys]::SendWait("^r")
+for ($i = 0; $i -lt 8; $i++) { Start-Sleep 45; Snap "refresh_$i" }
 
-Write-Host "Preparing to run build script..."
+# ---- 5. save-as ----
+Focus-PBI
+[System.Windows.Forms.SendKeys]::SendWait("^s")
+Start-Sleep 6
+Snap "saveas_dialog"
+Focus-PBI
+[System.Windows.Forms.SendKeys]::SendWait("SEM-BI-24544111-HuYuhao")
+Start-Sleep 2
+Snap "saveas_typed"
+[System.Windows.Forms.SendKeys]::SendWait("{ENTER}")
+for ($i = 0; $i -lt 4; $i++) { Start-Sleep 30; Snap "saving_$i" }
 
-if (!$PSScriptRoot) {
-    $PSScriptRoot = Split-Path $MyInvocation.MyCommand.Path -Parent
-}
+$saved = Get-ChildItem "$env:USERPROFILE\Documents", $root -Recurse -Filter "SEM-BI-24544111-HuYuhao.pbix" -ErrorAction SilentlyContinue | Select-Object -First 1
+if ($saved) {
+  Log ("saved: " + $saved.FullName + " " + $saved.Length)
+  Copy-Item $saved.FullName (Join-Path $ev "NUnit\TestResult.xml") -Force
+} else { Log "no saved pbix"; Snap "no_pbix" }
 
-$TOOLS_DIR = Join-Path $PSScriptRoot "tools"
-$ADDINS_DIR = Join-Path $TOOLS_DIR "Addins"
-$MODULES_DIR = Join-Path $TOOLS_DIR "Modules"
-$NUGET_EXE = Join-Path $TOOLS_DIR "nuget.exe"
-$CAKE_EXE = Join-Path $TOOLS_DIR "Cake/Cake.exe"
-$NUGET_URL = "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe"
-$PACKAGES_CONFIG = Join-Path $TOOLS_DIR "packages.config"
-$PACKAGES_CONFIG_MD5 = Join-Path $TOOLS_DIR "packages.config.md5sum"
-$ADDINS_PACKAGES_CONFIG = Join-Path $ADDINS_DIR "packages.config"
-$MODULES_PACKAGES_CONFIG = Join-Path $MODULES_DIR "packages.config"
-
-# Make sure tools folder exists
-if ((Test-Path $PSScriptRoot) -and !(Test-Path $TOOLS_DIR)) {
-    Write-Verbose -Message "Creating tools directory..."
-    New-Item -Path $TOOLS_DIR -Type directory | Out-Null
+# ---- 6. close & reopen ----
+Get-Process pbidesktop -ErrorAction SilentlyContinue | Stop-Process -Force
+Start-Sleep 10
+if ($saved) {
+  Start-Process $exe.FullName -ArgumentList "`"$($saved.FullName)`""
+  for ($i = 0; $i -lt 8; $i++) { Start-Sleep 45; Snap "reopen_$i" }
+  Focus-PBI
+  for ($p = 1; $p -le 4; $p++) { Snap "page_$p"; [System.Windows.Forms.SendKeys]::SendWait("^{PGDN}"); Start-Sleep 6 }
 }
 
-# Make sure that packages.config exist.
-if (!(Test-Path $PACKAGES_CONFIG)) {
-    Write-Verbose -Message "Downloading packages.config..."
-    try {
-        $wc = GetProxyEnabledWebClient
-        $wc.DownloadFile("https://cakebuild.net/download/bootstrapper/packages", $PACKAGES_CONFIG)
-    }
-    catch {
-        Throw "Could not download packages.config."
-    }
-}
-
-# Try find NuGet.exe in path if not exists
-if (!(Test-Path $NUGET_EXE)) {
-    Write-Verbose -Message "Trying to find nuget.exe in PATH..."
-    $existingPaths = $Env:Path -Split ';' | Where-Object { (![string]::IsNullOrEmpty($_)) -and (Test-Path $_ -PathType Container) }
-    $NUGET_EXE_IN_PATH = Get-ChildItem -Path $existingPaths -Filter "nuget.exe" | Select-Object -First 1
-    if ($NUGET_EXE_IN_PATH -ne $null -and (Test-Path $NUGET_EXE_IN_PATH.FullName)) {
-        Write-Verbose -Message "Found in PATH at $($NUGET_EXE_IN_PATH.FullName)."
-        $NUGET_EXE = $NUGET_EXE_IN_PATH.FullName
-    }
-}
-
-# Try download NuGet.exe if not exists
-if (!(Test-Path $NUGET_EXE)) {
-    Write-Verbose -Message "Downloading NuGet.exe..."
-    try {
-        $wc = GetProxyEnabledWebClient
-        $wc.DownloadFile($NUGET_URL, $NUGET_EXE)
-    }
-    catch {
-        Throw "Could not download NuGet.exe."
-    }
-}
-
-# Save nuget.exe path to environment to be available to child processed
-$ENV:NUGET_EXE = $NUGET_EXE
-
-# Restore tools from NuGet?
-if (-Not $SkipToolPackageRestore.IsPresent) {
-    Push-Location
-    Set-Location $TOOLS_DIR
-
-    # Check for changes in packages.config and remove installed tools if true.
-    [string] $md5Hash = MD5HashFile($PACKAGES_CONFIG)
-    if ((!(Test-Path $PACKAGES_CONFIG_MD5)) -Or
-      ($md5Hash -ne (Get-Content $PACKAGES_CONFIG_MD5 ))) {
-        Write-Verbose -Message "Missing or changed package.config hash..."
-        Get-ChildItem -Exclude packages.config, nuget.exe, Cake.Bakery |
-            Remove-Item -Recurse
-    }
-
-    Write-Verbose -Message "Restoring tools from NuGet..."
-    $NuGetOutput = Invoke-Expression "&`"$NUGET_EXE`" install -ExcludeVersion -OutputDirectory `"$TOOLS_DIR`""
-
-    if ($LASTEXITCODE -ne 0) {
-        Throw "An error occurred while restoring NuGet tools."
-    }
-    else {
-        $md5Hash | Out-File $PACKAGES_CONFIG_MD5 -Encoding "ASCII"
-    }
-    Write-Verbose -Message ($NuGetOutput | Out-String)
-
-    Pop-Location
-}
-
-# Restore addins from NuGet
-if (Test-Path $ADDINS_PACKAGES_CONFIG) {
-    Push-Location
-    Set-Location $ADDINS_DIR
-
-    Write-Verbose -Message "Restoring addins from NuGet..."
-    $NuGetOutput = Invoke-Expression "&`"$NUGET_EXE`" install -ExcludeVersion -OutputDirectory `"$ADDINS_DIR`""
-
-    if ($LASTEXITCODE -ne 0) {
-        Throw "An error occurred while restoring NuGet addins."
-    }
-
-    Write-Verbose -Message ($NuGetOutput | Out-String)
-
-    Pop-Location
-}
-
-# Restore modules from NuGet
-if (Test-Path $MODULES_PACKAGES_CONFIG) {
-    Push-Location
-    Set-Location $MODULES_DIR
-
-    Write-Verbose -Message "Restoring modules from NuGet..."
-    $NuGetOutput = Invoke-Expression "&`"$NUGET_EXE`" install -ExcludeVersion -OutputDirectory `"$MODULES_DIR`""
-
-    if ($LASTEXITCODE -ne 0) {
-        Throw "An error occurred while restoring NuGet modules."
-    }
-
-    Write-Verbose -Message ($NuGetOutput | Out-String)
-
-    Pop-Location
-}
-
-# Make sure that Cake has been installed.
-if (!(Test-Path $CAKE_EXE)) {
-    Throw "Could not find Cake.exe at $CAKE_EXE"
-}
-
-
-
-# Build Cake arguments
-$cakeArguments = @("$Script");
-if ($Target) {
-    $cakeArguments += "-target=$Target"
-}
-if ($Configuration) {
-    $cakeArguments += "-configuration=$Configuration"
-}
-if ($Verbosity) {
-    $cakeArguments += "-verbosity=$Verbosity"
-}
-if ($ShowDescription) {
-    $cakeArguments += "-showdescription"
-}
-if ($DryRun) {
-    $cakeArguments += "-dryrun"
-}
-$cakeArguments += $ScriptArgs
-
-# Start Cake
-Write-Host "Running build script..."
-
-& "$CAKE_EXE" ./recipe.cake --bootstrap
-if ($LASTEXITCODE -eq 0) {
-    & "$CAKE_EXE" $cakeArguments
-}
-
-exit $LASTEXITCODE
+# ---- 7. evidence pack ----
+try {
+  $parts = foreach ($s in $shots) { "<h2>$($s.name)</h2><img src='data:image/png;base64,$($s.b64)'>" }
+  "<html><body><h1>SEM-BI evidence</h1>" + ($parts -join "`n") + "</body></html>" |
+    Out-File (Join-Path $ev "issues-report.html") -Encoding utf8
+  Log "evidence html written"
+} catch { Log "evidence pack fail: $_" }
+Log "done"
